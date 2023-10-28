@@ -8,8 +8,12 @@ interface Props {
 export default function Item(props: Props) {
   return (
     <>
-      <div class="cursor-pointer h-[48vh] w-full bg-gray-200 dark:bg-neutral-800 rounded-[6px]">
-        {props.name}
+      <div class="flex flex-col gap-2 pb-10">
+        <div class="cursor-pointer h-[48vh] w-full bg-gray-100 dark:bg-neutral-800 "></div>
+        <div class="flex justify-between items-center px-4">
+          <div class="font-mono text-[14px]">{props.name}</div>
+          <div class="text-[12px] font-light">$150.00</div>
+        </div>
       </div>
     </>
   );
