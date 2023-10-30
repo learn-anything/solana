@@ -1,7 +1,5 @@
-import { A } from "solid-start";
-import ItemInfo from "~/components/ItemInfo";
-import ItemsPage from "~/components/ItemsPage";
-import Nav from "~/components/Nav";
+import ItemsPage from "~/components/ItemsPage"
+import Nav from "~/components/Nav"
 
 export default function Home() {
   return (
@@ -12,5 +10,5 @@ export default function Home() {
         {/* <ItemInfo /> */}
       </div>
     </>
-  );
+  )
 }
