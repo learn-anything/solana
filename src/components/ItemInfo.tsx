@@ -1,8 +1,7 @@
-import { Show, createSignal } from "solid-js";
-import { useGlobalState } from "~/GlobalContext/global";
+import { useGlobalState } from "~/GlobalContext/global"
 
 export default function ItemInfo() {
-  const global = useGlobalState();
+  const global = useGlobalState()
 
   return (
     <>
@@ -10,9 +9,9 @@ export default function ItemInfo() {
         <div id="InfoCard" class="z-20 w-full h-full bg-white flex gap-2 p-2">
           <div class="relative h-full w-full bg-[#f9f8f6]">
             <div
-              class="w-[40px] flex items-center justify-center text-[20px] h-[40px] bg-white rounded-[6px] absolute top-2 left-2"
+              class="w-[40px] flex items-center justify-center text-[20px] h-[40px] bg-white rounded-[6px] absolute top-2 left-2 cursor-pointer p-4"
               onClick={() => {
-                global.setShowItemInfo(false);
+                global.setShowItemInfo(false)
               }}
             >
               x
@@ -24,32 +23,26 @@ export default function ItemInfo() {
           >
             <div class="">
               <div class="flex flex-col text-[15px] pb-[40px] leading-5">
-                <div class="font-mono">Mini Classic Shield Ring</div>
-                <div class="font-light text-[16px] opacity-80">$5500.00</div>
-                <div class="opacity-40 font-bold text-[10px]">
-                  Made To Order
-                </div>
+                <div class="font-mono">Course</div>
+                <div class="font-light text-[16px] opacity-80">$30</div>
               </div>
-              <div class=" pb-[40px]">
-                <div>Material</div>
-                <div>Options</div>
-              </div>
+              {/* <div class=" pb-[40px]"></div> */}
             </div>
             <div class="flex flex-col gap-6">
               <div class="flex items-center">
                 <div
                   onClick={() => {
-                    global.setShowCart(true);
+                    global.setShowCart(true)
                   }}
-                  class="bg-black hover:bg-transparent border border-black flex items-center justify-center p-3 w-[350px] text-white hover:text-black"
+                  class="bg-black hover:bg-transparent border border-black flex items-center justify-center p-3 w-[350px] text-white hover:text-black cursor-pointer"
                 >
-                  ADD TO CART
+                  Buy for $30
                 </div>
-                <div class="text-[14px] flex items-center justify-center w-[200px] opacity-40">
-                  ADD TO WISHLIST
+                <div class="text-[14px] flex items-center justify-center w-[200px] opacity-40 cursor-pointer">
+                  Save for later
                 </div>
               </div>
-              <div class="flex font-light justify-between gap-6 text-[14px]">
+              {/* <div class="flex font-light justify-between gap-6 text-[14px]">
                 <div class="flex flex-col gap-2">
                   <div>Overview</div>
                   <div>Shipping</div>
@@ -62,7 +55,7 @@ export default function ItemInfo() {
                   temporibus at atque consectetur doloribus ea, vitae veritatis?
                   Ut aperiam quo saepe dignissimos.
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
@@ -79,5 +72,5 @@ export default function ItemInfo() {
         }
       `}</style>
     </>
-  );
+  )
 }
