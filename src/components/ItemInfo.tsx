@@ -8,7 +8,16 @@ export default function ItemInfo() {
     <>
       <div class="fixed top-0 right-0 w-screen h-screen flex items-center justify-end">
         <div id="InfoCard" class="z-20 w-full h-full bg-white flex gap-2 p-2">
-          <div class="h-full w-full bg-[#f9f8f6]"></div>
+          <div class="relative h-full w-full bg-[#f9f8f6]">
+            <div
+              class="w-[40px] flex items-center justify-center text-[20px] h-[40px] bg-white rounded-[6px] absolute top-2 left-2"
+              onClick={() => {
+                global.setShowItemInfo(false);
+              }}
+            >
+              x
+            </div>
+          </div>
           <div
             id="Info"
             class="w-full flex flex-col justify-between gap-2 h-full px-[5rem] pb-[2rem] pt-[5rem]"
