@@ -17,6 +17,7 @@
   "dependencies": {
     "@nightlylabs/wallet-selector-solana": "^0.2.5",
     "@solana/web3.js": "^1.87.3",
+    "@solid-primitives/event-listener": "^2.3.0",
     "@solidjs/meta": "^0.28.6",
     "@solidjs/router": "^0.8.3",
     "@sqds/multisig": "^1.10.0",
