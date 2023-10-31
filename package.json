@@ -23,7 +23,8 @@
     "@sqds/multisig": "^1.10.0",
     "clsx": "^2.0.0",
     "solid-js": "^1.8.3",
-    "solid-start": "^0.3.8"
+    "solid-start": "^0.3.8",
+    "solid-start-cloudflare-pages": "^0.3.8"
   },
   "engines": {
     "node": "18"
