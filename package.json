@@ -15,9 +15,11 @@
     "vite": "^4.4.9"
   },
   "dependencies": {
+    "@nightlylabs/wallet-selector-solana": "^0.2.5",
     "@solana/web3.js": "^1.87.3",
     "@solidjs/meta": "^0.28.6",
     "@solidjs/router": "^0.8.3",
+    "@sqds/multisig": "^1.10.0",
     "clsx": "^2.0.0",
     "solid-js": "^1.8.3",
     "solid-start": "^0.3.8"

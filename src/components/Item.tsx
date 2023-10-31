@@ -1,19 +1,20 @@
-import { useGlobalState } from "~/GlobalContext/global";
+import { useGlobalState } from "~/GlobalContext/global"
+import { getAdapter } from "~/lib/solana/adapter"
 
 interface Props {
-  name: string;
-  price: string;
-  image?: string;
-  onClick?: () => void;
+  name: string
+  price: string
+  image?: string
+  onClick?: () => void
 }
 
 export default function Item(props: Props) {
-  const global = useGlobalState();
+  const global = useGlobalState()
   return (
     <>
       <div
-        onClick={() => {
-          global.setShowItemInfo(true);
+        onClick={async () => {
+          global.setShowItemInfo(true)
         }}
         class="flex flex-col gap-2 pb-10"
       >
@@ -24,5 +25,5 @@ export default function Item(props: Props) {
         </div>
       </div>
     </>
-  );
+  )
 }
