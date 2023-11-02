@@ -15,7 +15,9 @@ export default function Home() {
         </Show>
         <Nav />
         <div id="hamburger" class="text-[12px] font-light h-[60px] px-8">
-          <span class="opacity-50">All jewelery Collection / </span>
+          <span class="text-black dark:text-white text-opacity-50">
+            All jewelery Collection /{" "}
+          </span>
           <span class="font-normal">Featured</span>
         </div>
         <ItemsPage />

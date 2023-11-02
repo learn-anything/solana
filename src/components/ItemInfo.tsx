@@ -102,7 +102,7 @@ export default function ItemInfo() {
       </div>
       <style>{`
         #InfoCard {
-          animation: 0.5s InfoCardSlide forwards ease-out;
+          animation: 0.2s InfoCardSlide forwards ease-out;
         }
 
         @keyframes InfoCardSlide {
