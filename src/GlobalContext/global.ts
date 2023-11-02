@@ -1,23 +1,38 @@
 import { createContext, useContext } from "solid-js";
 import { createStore } from "solid-js/store";
 
+interface Product {
+  name: string;
+  description?: string;
+  imageUrl?: string;
+  websiteUrl?: string;
+  priceInUsd: number;
+}
 type GlobalState = {
   expandItemId?: string;
   showItemInfo: boolean;
   showCart: boolean;
+  products: Product[];
+  currentStorePage: StorePages;
 };
+type StorePages = "Product" | "Home";
 
 // various global state
 export function createGlobalState() {
   const [state, setState] = createStore<GlobalState>({
     showItemInfo: false,
     showCart: false,
+    products: [{ name: "Ring", priceInUsd: 300 }],
+    currentStorePage: "Product",
   });
 
   return {
     state,
     setShowItemInfo: (boolean: boolean) => {
       setState({ showItemInfo: boolean });
+    },
+    setCurrentStorePage: (page: StorePages) => {
+      setState({ currentStorePage: page });
     },
     setShowCart: (boolean: boolean) => {
       setState({ showCart: boolean });

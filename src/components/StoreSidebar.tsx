@@ -1,4 +1,8 @@
+import clsx from "clsx";
+import { useGlobalState } from "~/GlobalContext/global";
+
 export default function StoreSidebar() {
+  const global = useGlobalState();
   return (
     <>
       <div
@@ -9,8 +13,28 @@ export default function StoreSidebar() {
           <div class="border-b-[0.5px] text-[24px] font-semibold min-h-[100px] flex items-center justify-center">
             Learn Anything
           </div>
-          <div class="p-3 px-4 border-y-[0.5px] border-gray-400">Home</div>
-          <div class="p-3 px-4 border-y-[0.5px] border-gray-400">Products</div>
+          <div
+            class={clsx(
+              "p-3 px-4 border-y-[0.5px] border-gray-400 transition-all",
+              global.state.currentStorePage === "Home" && "text-purple-500"
+            )}
+            onClick={() => {
+              global.setCurrentStorePage("Home");
+            }}
+          >
+            Home
+          </div>
+          <div
+            class={clsx(
+              "p-3 px-4 border-y-[0.5px] border-gray-400 transition-all",
+              global.state.currentStorePage === "Product" && "text-purple-500"
+            )}
+            onClick={() => {
+              global.setCurrentStorePage("Product");
+            }}
+          >
+            Products
+          </div>
           <div class="p-3 px-4 border-y-[0.5px] border-gray-400">Checkout</div>
         </div>
         <div>
