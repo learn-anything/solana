@@ -14,6 +14,7 @@ type GlobalState = {
   showCart: boolean;
   products: Product[];
   currentStorePage: StorePages;
+  showUploadModal: boolean;
 };
 type StorePages = "Product" | "Home";
 
@@ -24,10 +25,14 @@ export function createGlobalState() {
     showCart: false,
     products: [{ name: "Ring", priceInUsd: 300 }],
     currentStorePage: "Product",
+    showUploadModal: false,
   });
 
   return {
     state,
+    setShowUploadModal: (boolean: boolean) => {
+      setState({ showUploadModal: boolean });
+    },
     setShowItemInfo: (boolean: boolean) => {
       setState({ showItemInfo: boolean });
     },
