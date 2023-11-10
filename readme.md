@@ -1,4 +1,4 @@
-# Solana Contracts
+# Solana Programs
 
 ## Idea investment marketplace
 
