@@ -1,4 +1,11 @@
 import { useGlobalState } from "~/GlobalContext/global"
+import {
+  TOKEN_PROGRAM_ID,
+  createApproveInstruction,
+  createAssociatedTokenAccountInstruction,
+  createTransferInstruction,
+  getAssociatedTokenAddress
+} from "@solana/spl-token"
 import { NightlyConnectAdapter } from "@nightlylabs/wallet-selector-solana"
 import {
   Connection,
@@ -8,6 +15,7 @@ import {
 } from "@solana/web3.js"
 import { createSignal } from "solid-js"
 import { getAdapter } from "~/lib/solana/adapter"
+import { getSolana } from "~/lib/solana/solana"
 
 export default function ItemInfo() {
   const global = useGlobalState()
@@ -46,17 +54,73 @@ export default function ItemInfo() {
                       const adapter = await getAdapter(false)
                       console.log(adapter, "adapter")
                       await adapter.connect()
+                      console.log("runs?")
+
+                      // const instruction = SystemProgram.transfer({
+                      //   fromPubkey: adapter.publicKey!,
+                      //   lamports: 1e6,
+                      //   toPubkey: new PublicKey(
+                      //     "147oKbjwGDHEthw7sRKNrzYiRiGqYksk1ravTMFkpAnv"
+                      //   )
+                      // })
+                      // const tx = new SolanaTx().add(instruction)
+                      // const connection = await getSolana()
+
+                      // const a = await connection.getRecentBlockhash()
+                      // tx.recentBlockhash = a.blockhash
+                      // tx.feePayer = adapter.publicKey!
+                      // const signedTx = await adapter.signTransaction!(tx)
+                      // await connection.sendRawTransaction(signedTx.serialize())
+                      // console.log("success, signed")
+                      // toast.success("Transaction was signed and sent!")
+
+                      // return
+
+                      // let connection: Connection
+                      // let payer: Signer
+                      // let mint: PublicKey
+                      // let mintAuthority: Keypair
+                      // let owner1: Keypair
+                      // let account1: PublicKey
+                      // let owner2: Keypair
+                      // let account2: PublicKey
+                      // let amount: bigint
+
+                      // connection = await getConnection()
+                      // payer = await newAccountWithLamports(
+                      //   connection,
+                      //   1000000000
+                      // )
+                      // mintAuthority = Keypair.generate()
+                      // const mintKeypair = Keypair.generate()
+                      // mint = await createMint(
+                      //   connection,
+                      //   payer,
+                      //   mintAuthority.publicKey,
+                      //   mintAuthority.publicKey,
+                      //   TEST_TOKEN_DECIMALS,
+                      //   mintKeypair,
+                      //   undefined,
+                      //   TEST_PROGRAM_ID
+                      // )
 
                       // create command to ask user user to use 50$ from their wallet
-                      //
 
-                      // const ix = SystemProgram.transfer({
+                      // const instruction = SystemProgram.transfer({
                       //   fromPubkey: adapter()!.publicKey!,
                       //   lamports: 1e6,
                       //   toPubkey: new PublicKey(
                       //     "147oKbjwGDHEthw7sRKNrzYiRiGqYksk1ravTMFkpAnv"
                       //   )
                       // })
+                      // const instruction = SystemProgram.transfer({
+                      //   fromPubkey: adapter()!.publicKey!,
+                      //   lamports: 1e6,
+                      //   toPubkey: new PublicKey(
+                      //     "147oKbjwGDHEthw7sRKNrzYiRiGqYksk1ravTMFkpAnv"
+                      //   )
+                      // })
+
                       // const tx = new SolanaTx()
                       //   .add(ix)
                       //   .add(ix)
@@ -71,12 +135,124 @@ export default function ItemInfo() {
                       // toast.success("Transaction was signed and sent!")
                     } catch (e) {
                       // toast.error("Error: couldn't sign and send transaction!")
-                      console.log(e)
+                      console.log(e, "error")
                     }
                   }}
                   class="bg-black hover:bg-transparent border border-black flex items-center justify-center p-3 w-[350px] text-white hover:text-black cursor-pointer"
                 >
                   Buy for $30
+                </button>
+                <button
+                  onClick={async () => {
+                    try {
+                      const adapter = await getAdapter(false)
+                      if (!adapter.connected) {
+                        await adapter.connect()
+                      }
+
+                      const buyerUsdcAddress = await getAssociatedTokenAddress(
+                        new PublicKey(
+                          "7AUnkVAWnkkh5Za3xLnSdgEuhs8SDuHuaqTAGErh44zc"
+                        ),
+                        adapter.publicKey!
+                      )
+                      const approveInstruction = createApproveInstruction(
+                        buyerUsdcAddress,
+                        new PublicKey(
+                          "HGDwai2q6T96TMGKreb6ZfYWsMjDcUZwSCGA89dEfLxR"
+                        ),
+                        adapter.publicKey!,
+                        50
+                      )
+                      const tx = new SolanaTx().add(approveInstruction)
+                      const solana = getSolana()
+                      const blockhash = await solana.getLatestBlockhash()
+                      tx.recentBlockhash = blockhash.blockhash
+                      tx.feePayer = adapter.publicKey!
+                      const signedTx = await adapter.signTransaction!(tx)
+                      const sig = await solana.sendRawTransaction(
+                        signedTx.serialize()
+                      )
+                      console.log(sig, "sig")
+                    } catch (e) {
+                      // TODO: add toast
+                      console.log(e, "error")
+                    }
+                  }}
+                  class="bg-black hover:bg-transparent border border-black flex items-center justify-center p-3 w-[350px] text-white hover:text-black cursor-pointer"
+                >
+                  Get approval for 30$
+                </button>
+                <button
+                  onClick={async () => {
+                    try {
+                      const adapter = await getAdapter(false)
+                      if (!adapter.connected) {
+                        await adapter.connect()
+                      }
+                      const sellerUsdcAddress = await getAssociatedTokenAddress(
+                        new PublicKey(
+                          "7AUnkVAWnkkh5Za3xLnSdgEuhs8SDuHuaqTAGErh44zc"
+                        ),
+                        new PublicKey(
+                          "HcYDw294BdtZ65qRDJwCztF41EoDeE1xoqn451R2WcJb"
+                        )
+                      )
+
+                      const createSellerUsdcAccount =
+                        createAssociatedTokenAccountInstruction(
+                          new PublicKey(
+                            "HGDwai2q6T96TMGKreb6ZfYWsMjDcUZwSCGA89dEfLxR"
+                          ),
+                          sellerUsdcAddress,
+                          new PublicKey(
+                            "HcYDw294BdtZ65qRDJwCztF41EoDeE1xoqn451R2WcJb"
+                          ),
+                          new PublicKey(
+                            "7AUnkVAWnkkh5Za3xLnSdgEuhs8SDuHuaqTAGErh44zc"
+                          )
+                        )
+
+                      const buyerUsdcAddress = await getAssociatedTokenAddress(
+                        new PublicKey(
+                          "7AUnkVAWnkkh5Za3xLnSdgEuhs8SDuHuaqTAGErh44zc"
+                        ),
+                        new PublicKey(
+                          "5sFCE6VPDpsJseA8mLrqqVDNabPbfuZCEmg8pqcXm4rG"
+                        )
+                      )
+
+                      const transferInstruction =
+                        await createTransferInstruction(
+                          buyerUsdcAddress,
+                          sellerUsdcAddress,
+                          // TODO: in backend, replace with platform keys
+                          adapter.publicKey!,
+                          20
+                        )
+
+                      const tx = new SolanaTx()
+                        .add(createSellerUsdcAccount)
+                        .add(transferInstruction)
+                      const solana = getSolana()
+                      const blockhash = await solana.getLatestBlockhash()
+                      tx.recentBlockhash = blockhash.blockhash
+                      tx.feePayer = adapter.publicKey!
+                      const signedTx = await adapter.signTransaction!(tx)
+                      const sig = await solana.sendRawTransaction(
+                        signedTx.serialize()
+                      )
+                      console.log(sig, "sig")
+
+                      return
+                    } catch (e) {
+                      // TODO: add toast
+                      console.log(e, "error")
+                    }
+                  }}
+                  class="bg-black hover:bg-transparent border border-black flex items-center justify-center p-3 w-[350px] text-white hover:text-black cursor-pointer"
+                >
+                  Buy for 30$ using delegated transfer
                 </button>
                 <div class="text-[14px] flex items-center justify-center w-[200px] opacity-40 cursor-pointer">
                   Save for later
